@@ -27,6 +27,14 @@ public class UserResource {
 	@Autowired
 	private UserService service;
 	
+	@RequestMapping(value"/{id}"=RequestMethod.GET)
+	public ResponseEntity<UserDTO>entity insert(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(new UserDTO(obj));
+		
+	}
+	
+	
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void>entity insert(@RequestBody UserDTO objDto) {
 		User obj = service.fromDTO(objDto);
@@ -36,6 +44,11 @@ public class UserResource {
 		
 		
 	}
+	
+	@RequestMapping(value"/{id}"=RequestMethod.DELETE)
+	public ResponseEntity<Void>entity delete(@PathVariable String id) {
+		service.delete(id);
+		return ResponseEntity.noContent().build();
 	
 	
 }
